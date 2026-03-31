@@ -77,19 +77,19 @@ The analysis utilizes two distinct datasets from Kaggle to test the versatility 
    git clone [https://github.com/yourusername/nlp-supervised-vs-unsupervised.git](https://github.com/yourusername/nlp-supervised-vs-unsupervised.git)
    cd nlp-supervised-vs-unsupervised
 
-## Install the required dependencies:
+2. **Install the required dependencies:**
+   ```bash
+   pip install pandas numpy matplotlib seaborn scikit-learn nltk tensorflow textblob wordcloud
 
-Bash
-pip install pandas numpy matplotlib seaborn scikit-learn nltk tensorflow textblob wordcloud
-Download the Data:
-Ensure you have downloaded the datasets from Kaggle (links above) and placed the .csv files in the root directory.
+3. **Download the Data:**
+   Ensure you have downloaded the datasets from Kaggle (links above) and placed the .csv files in the root directory.
 
-Run the Notebooks:
-Launch Jupyter Notebook or Jupyter Lab:
+4. **Run the Notebooks:**
+   Launch Jupyter Notebook or Jupyter Lab:
 
-Bash
-jupyter notebook
-Open Supervised_Learning_Text_Classification.ipynb or Unsupervised Learning_Segmentation_Clustering.ipynb and run the cells sequentially.
+   ```bash
+   jupyter notebook
+   Open Supervised_Learning_Text_Classification.ipynb or Unsupervised Learning_Segmentation_Clustering.ipynb and run the cells sequentially.
 
 ✍️ Author
 Femi James
