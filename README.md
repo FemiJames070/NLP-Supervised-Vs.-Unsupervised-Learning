@@ -91,5 +91,7 @@ The analysis utilizes two distinct datasets from Kaggle to test the versatility 
    jupyter notebook
    Open Supervised_Learning_Text_Classification.ipynb or Unsupervised Learning_Segmentation_Clustering.ipynb and run the cells sequentially.
 
-✍️ Author
+## ✍️ Author
+
 Femi James
+Data & Business Analyst | Integrated AI Specialist
