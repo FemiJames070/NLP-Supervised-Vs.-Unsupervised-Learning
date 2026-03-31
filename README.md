@@ -1,89 +1,91 @@
-# NLP-Supervised-Vs.-Unsupervised-Learning
+# NLP: Supervised vs. Unsupervised Learning 🧠📊
 
-NLP Supervised Learning Vs. Unsupervised Learning
-This repository provides a comprehensive comparative analysis of Natural Language Processing (NLP) techniques, contrasting supervised text classification with unsupervised clustering and topic modeling. Following the CRISP-DM methodology, the project applies both traditional machine learning and deep learning models to two distinct types of text data: subjective customer sentiment and objective technical descriptions.
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Jupyter Notebook](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
+[![Scikit-Learn](https://img.shields.io/badge/scikit--learn-Machine%20Learning-lightgrey.svg)](https://scikit-learn.org/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-Deep%20Learning-FF6F00.svg)](https://www.tensorflow.org/)
 
-📊 Data Sources
-The analysis utilizes two high-quality datasets from Kaggle to compare model performance across different linguistic contexts:
+## 📖 Overview
+This repository provides a comprehensive comparative analysis of Natural Language Processing (NLP) techniques, explicitly contrasting **Supervised Text Classification** with **Unsupervised Clustering and Topic Modeling**. 
 
-TripAdvisor Hotel Reviews (~20k rows): Subjective, sentiment-heavy text. Used to predict/discover a 1–5 star rating scale.
+Following the **CRISP-DM** (Cross-Industry Standard Process for Data Mining) methodology, this project evaluates how both traditional Machine Learning and Deep Learning architectures handle two fundamentally different types of text data: subjective emotional sentiment and objective technical jargon.
 
-Wine Tasting Reviews (~130k rows): Objective, highly technical text. Used to predict/discover quality tiers based on complex lexical flavor profiles.
+## 📂 Data Sources
+The analysis utilizes two distinct datasets from Kaggle to test the versatility of our models:
+1. **[TripAdvisor Hotel Reviews](https://www.kaggle.com/datasets/andrewmvd/trip-advisor-hotel-reviews)** (~20k rows): Subjective, sentiment-heavy text. Used to predict and discover a 1–5 star rating scale.
+2. **[Wine Tasting Reviews](https://www.kaggle.com/datasets/mysarahmadbhat/wine-tasting)** (~130k rows): Objective, highly technical text. Used to predict and discover quality tiers based on complex, lexical flavor profiles.
 
-📓 Notebook 1: Supervised Learning (Text Classification)
-Goal: Build and test several machine learning models to categorize text into predefined labels (Star Ratings for hotels, engineered Quality Tiers for wines).
+---
 
-Methodology & Models
-Preprocessing: Lowercasing, punctuation removal, NLTK tokenization, stopword removal, and WordNet lemmatization.
+## 📓 Notebook 1: Supervised Learning (Text Classification)
+**File:** `Supervised_Learning_Text_Classification.ipynb`
 
-Vectorization: TF-IDF (Term Frequency-Inverse Document Frequency) and Token Padding (for deep learning).
+**Goal:** Build and test several machine learning models to categorize text into predefined labels (Star Ratings for hotels, engineered Quality Tiers for wines).
 
-Models Evaluated:
+### Methodology & Models
+* **Preprocessing Pipeline:** Lowercasing, punctuation removal, NLTK tokenization, stopword removal, and WordNet lemmatization.
+* **Vectorization:** TF-IDF (Term Frequency-Inverse Document Frequency) for ML models; Tokenization and Padding for Deep Learning.
+* **Models Evaluated:**
+  * Multinomial Naive Bayes (MNB) - *Baseline*
+  * Support Vector Machine (LinearSVC)
+  * Random Forest Classifier
+  * Deep LSTM (Long Short-Term Memory network)
 
-Multinomial Naive Bayes (MNB) - Baseline
+### Key Findings
+* 🏆 **Best Performer:** **LinearSVC** consistently outperformed all other models across both datasets (Macro F1 of 0.51 for TripAdvisor, 0.64 for Wine). It proved highly capable of finding optimal decision boundaries in high-dimensional, sparse TF-IDF feature spaces, overcoming severe class imbalances.
+* 📉 **The Imbalance Trap:** The baseline MNB struggled significantly with minority classes, completely failing to predict the "Neutral" hotel ratings or "Excellent" wine categories.
+* ⚠️ **Deep Learning Overkill:** The Deep LSTM architecture underperformed compared to traditional linear models. It quickly overfit the training data and suffered from mode collapse, indicating that for short, polarized text, word presence (feature weighting) is more predictive than word sequence.
+* 🌳 **Tree-based Limitations:** Random Forest delivered the weakest performance, confirming that non-linear, tree-based models are poorly suited for sparse text matrices.
 
-Support Vector Machine (LinearSVC)
+---
 
-Random Forest Classifier
+## 📓 Notebook 2: Unsupervised Learning (Clustering & Topic Modeling)
+**File:** `Unsupervised Learning_Segmentation_Clustering.ipynb`
 
-Deep LSTM (Long Short-Term Memory network)
+**Goal:** Utilize clustering and dimensionality reduction to discover hidden structures, semantic segments, and thematic patterns without relying on predefined labels or human ratings.
 
-Key Findings
-The Best Performer: LinearSVC consistently outperformed all other models across both datasets (Macro F1 of 0.51 for TripAdvisor, 0.64 for Wine). It proved highly capable of finding optimal decision boundaries in high-dimensional, sparse TF-IDF feature spaces, even amidst severe class imbalance.
+### Methodology & Models
+* **Feature Engineering:** `Word Count` and `Sentiment Polarity` (via TextBlob) were added as latent descriptors to profile generated clusters mathematically.
+* **Algorithms Evaluated:**
+  * K-Means Clustering (Optimized via the Elbow Method)
+  * Agglomerative Hierarchical Clustering
+  * Latent Dirichlet Allocation (LDA)
+  * Non-Negative Matrix Factorization (NMF)
+  * LSTM-Based Next-Word Prediction (Semantic Pattern Discovery)
 
-The Imbalance Trap: The baseline MNB struggled significantly with minority classes, often completely failing to predict the "Neutral" hotel ratings or "Excellent" wine categories.
+### Key Findings
+* 🧠 **Subjective vs. Technical Text:** Subjective data (TripAdvisor) forms distinct clusters based on emotional valence, whereas technical data (Wine) is highly standardized and dense, relying strictly on specific jargon (flavor profiles) rather than sentiment.
+* 🏆 **Topic Modeling Success:** **LDA** proved to be the most "human-like" model, achieving the highest alignment with original human ratings (Highest NMI score). It successfully identified logical overlapping themes (e.g., Service, Location, Cleanliness).
+* 🌫️ **Fuzzy Boundaries:** Silhouette scores across the board remained low. Text data naturally has overlapping vocabulary (e.g., words like "hotel" or "wine" appear everywhere), resulting in "fuzzy" semantic clusters rather than perfectly isolated geometric groups.
+* 💡 **Business Application:** For automated text analysis pipelines, **LDA** should be prioritized for deep thematic discovery, while **K-Means** serves best for rapid, broad customer segmentation.
 
-Deep Learning Overkill: The Deep LSTM architecture underperformed compared to traditional linear models. It quickly overfit the training data and suffered from mode collapse, indicating that for short, polarized text, sequence (word order) is less important than simple feature weighting.
+---
 
-Tree-based Limitations: Random Forest delivered the weakest performance, confirming that non-linear, tree-based models are poorly suited for sparse text data.
+## 🛠️ Technologies & Libraries
+* **Language:** Python 3
+* **Data Manipulation & EDA:** `pandas`, `numpy`, `matplotlib`, `seaborn`, `TextBlob`
+* **NLP Processing:** `nltk` (Stopwords, WordNetLemmatizer, Tokenizer), `wordcloud`
+* **Machine Learning:** `scikit-learn` (TF-IDF, LinearSVC, MNB, RandomForest, K-Means, Agglomerative, LDA, NMF)
+* **Deep Learning:** `tensorflow` / `keras` (Sequential, LSTM, Embedding, EarlyStopping)
 
-📓 Notebook 2: Unsupervised Learning (Clustering & Topic Modeling)
-Goal: Utilize clustering and dimensionality reduction to discover hidden structures, semantic segments, and thematic patterns without relying on predefined labels.
+---
 
-Methodology & Models
-Feature Engineering: Word Count and Sentiment Polarity (TextBlob) were added as latent descriptors to profile clusters.
+## 🚀 Installation & Usage
 
-Clustering Algorithms:
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/yourusername/nlp-supervised-vs-unsupervised.git](https://github.com/yourusername/nlp-supervised-vs-unsupervised.git)
+   cd nlp-supervised-vs-unsupervised
+Install the required dependencies:
 
-K-Means Clustering (tested via the Elbow Method)
+Bash
+pip install pandas numpy matplotlib seaborn scikit-learn nltk tensorflow textblob wordcloud
+Download the Data:
+Ensure you have downloaded the datasets from Kaggle (links above) and placed the .csv files in the root directory.
 
-Agglomerative Hierarchical Clustering
+Run the Notebooks:
+Launch Jupyter Notebook or Jupyter Lab:
 
-Topic Modeling & Sequence Discovery:
-
-Latent Dirichlet Allocation (LDA)
-
-Non-Negative Matrix Factorization (NMF)
-
-LSTM-Based Next-Word Prediction (Semantic Pattern Discovery)
-
-Key Findings
-Subjective vs. Technical: Unsupervised algorithms perform very differently depending on the text type. Subjective data (TripAdvisor) forms distinct clusters based on emotional valence, whereas technical data (Wine) is highly standardized and dense, relying strictly on specific jargon (flavor profiles) rather than sentiment.
-
-Topic Modeling Success: LDA proved to be the most "human-like" model, achieving the highest alignment with original human ratings (Highest NMI score). It successfully identified logical overlapping themes (e.g., Service, Location, Cleanliness).
-
-Fuzzy Boundaries: Silhouette scores across the board remained low. Text data naturally has overlapping vocabulary (e.g., words like "hotel" or "wine" appear everywhere), resulting in "fuzzy" clusters rather than perfectly isolated groups.
-
-Business Application: For automated text analysis pipelines, LDA should be prioritized for deep thematic discovery, while K-Means serves best for rapid, broad customer segmentation.
-
-🛠️ Technologies & Libraries
-Language: Python 3
-
-Data Manipulation & EDA: Pandas, NumPy, Matplotlib, Seaborn, TextBlob
-
-NLP Processing: NLTK (Stopwords, WordNetLemmatizer, Tokenizer), WordCloud
-
-Machine Learning: Scikit-learn (TF-IDF, LinearSVC, MNB, RandomForest, K-Means, Agglomerative, LDA, NMF)
-
-Deep Learning: TensorFlow / Keras (Sequential, LSTM, Embedding, EarlyStopping)
-
-🚀 How to Run
-Clone the repository.
-
-Ensure you have the datasets downloaded from Kaggle and placed in the root directory (or update the file paths in the notebooks).
-
-Install the required dependencies: pip install pandas numpy matplotlib seaborn scikit-learn nltk tensorflow textblob wordcloud
-
-Run the Jupyter Notebooks sequentially to observe the data pipeline from preprocessing to model evaluation.
-
-Author: Femi James
+Bash
+jupyter notebook
+Open Supervised_Learning_Text_Classification.ipynb or Unsupervised Learning_Segmentation_Clustering.ipynb and run the cells sequentially.
